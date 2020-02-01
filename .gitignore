@@ -1,0 +1,12 @@
+/.git
+/__pycache__
+/model
+/app
+/picss
+/npy
+/pre_img
+/train_img
+train_img.zip
+train_img.rar
+train_img2.zip
+shape_predictor_68_face_landmarks.dat
