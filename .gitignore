@@ -21,6 +21,7 @@ UserInterface/UserInterface/bin
 UserInterface/UserInterface/obj
 UserInterface/*.user
 UserInterface/*.suo
+UserInterface/packages
 UserInterface/_ReSharper.*
 UserInterface/*.sln.cache
 
@@ -35,3 +36,4 @@ UserInterface*.xap
 UserInterface*.vspcc
 UserInterface*.vscc 
 UserInterface*.vssscc
+**/packages/*
