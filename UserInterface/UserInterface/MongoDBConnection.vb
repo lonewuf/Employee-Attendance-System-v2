@@ -8,5 +8,6 @@ Public Class MongoDBConnection
     Public db As IMongoDatabase = client.GetDatabase("db")
     Public EmployeeCollection As IMongoCollection(Of BsonDocument) = db.GetCollection(Of BsonDocument)("employees")
     Public UserCollection As IMongoCollection(Of BsonDocument) = db.GetCollection(Of BsonDocument)("users")
+    Public AttendanceCollection As IMongoCollection(Of BsonDocument) = db.GetCollection(Of BsonDocument)("attendances")
 
 End Class

@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from scipy import misc
+from datetime import datetime, timedelta
 import cv2
 import numpy as np
 import facenet
@@ -28,8 +29,8 @@ train_img="./train_img"
 # Setup database
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["db"]
-mycol = mydb["employees"]
-mycol2 = mydb["attendances"]
+col_employees = mydb["employees"]
+col_attendance = mydb["attendances"]
 
 with tf.Graph().as_default():
     
@@ -68,7 +69,7 @@ with tf.Graph().as_default():
         with open(classifier_filename_exp, 'rb') as infile:
             (model, class_names) = pickle.load(infile, encoding='latin1')
 
-        video_capture = cv2.VideoCapture(0)
+        video_capture = cv2.VideoCapture(1)
         c = 0
 
         ## custom
@@ -141,9 +142,8 @@ with tf.Graph().as_default():
 
                             
                             img_counter += 1
-                            num_detected = 0
                             print(best_class_probabilities)
-                            if best_class_probabilities>0.65:
+                            if best_class_probabilities>0.70:
                                 cv2.rectangle(frame, (bb[i][0], bb[i][1]), (bb[i][2], bb[i][3]), (0, 255, 0), 2)    #boxing face
 
                                 #plot result idx under box
@@ -158,18 +158,49 @@ with tf.Graph().as_default():
                                 if num_detected <= 1:
                                     if name_detected == HumanNames[best_class_indices[0]]:
                                         num_detected+=1
-                                        print("saaaaad")
                                     else:
                                         name_detected = HumanNames[best_class_indices[0]]
                                         num_detected = 0
                                 else:
-                                    myquery = { "name": HumanNames[best_class_indices[0]] }
-                                    newvalues = { "$set": { "is_present": 1 }}
-                                    x = mycol2.update_one(myquery, newvalues)
-                                    print(HumanNames[best_class_indices[0]], " is sent to database.")
-                                    num_detected = 0
-                                    name_detected = "sample name"
+                                    start_date = datetime.today()
+                                    end_date = datetime.today() + timedelta(days=1)
+                                    start_date = start_date.replace(hour=0, minute=0, second=0)
+                                    print(start_date)
+                                    print(end_date)
+                                    total_documents = col_attendance.count_documents({"name": HumanNames[best_class_indices[0]], 'date': {'$lt': end_date, '$gte': start_date}})
+                                    print(total_documents)
+                                    if total_documents == 0:
+                                        curr_date = datetime.now()
+                                        attendance = {}
+
+                                        for x in col_employees.find({"name": HumanNames[best_class_indices[0]]}):
+                                            attendance = {
+                                                "name": HumanNames[best_class_indices[0]],
+                                                "date": curr_date,
+                                                "age": x["age"],
+                                                "phone_number": x["phone_number"],
+                                                "employee_number": x["employee_number"],
+                                                "date_string": curr_date.strftime("%m/%d/%Y, %H:%M:%S")
+
+                                            }
+
+                                        # myquery = { "name": HumanNames[best_class_indices[0]] }
+                                        # newvalues = { "$set": { "is_present": 1 }}
+                                        # x = mycol2.update_one(myquery, newvalues)
+
+                                        x = col_attendance.insert_one(attendance)
+                                        print(HumanNames[best_class_indices[0]], " is sent to database.")
+                                        print("inserted on database")
+                                        attendance = {}
+                                        num_detected = 0
+                                        name_detected = "sample name"
+                                    else:
+                                        print("Employee already login today")
                                     
+                                    # db.employees.insert({"name": "John Nico Austria", "age": 18, "employee_number": "001", "phone_number": "09999999999"})
+                                    # db.employees.insert({"name": "Dwayne Cueto", "age": 20, "employee_number": "002", "phone_number": "09321536313"})
+                                    # db.employees.insert({"name": "Ernest Nicole Penales", "age": 21, "employee_number": "003", "phone_number": "099072918293"})
+                                    # db.employees.insert({"name": "Sammuel Tumanguil", "age": 22, "employee_number": "004", "phone_number": "09339992199"})
 
                                 for H_i in HumanNames:
                                     if HumanNames[best_class_indices[0]] == H_i:
