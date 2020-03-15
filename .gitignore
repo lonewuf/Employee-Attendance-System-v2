@@ -17,3 +17,9 @@
 /Engine/train_img.rar
 /Engine/train_img2.zip
 /Engine/shape_predictor_68_face_landmarks.dat
+UserInterface/UserInterface/bin
+UserInterface/UserInterface//obj
+UserInterface/*.user
+UserInterface/*.suo
+UserInterface/_ReSharper.*
+UserInterface/*.sln.cache
