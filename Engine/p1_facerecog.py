@@ -69,7 +69,7 @@ with tf.Graph().as_default():
         with open(classifier_filename_exp, 'rb') as infile:
             (model, class_names) = pickle.load(infile, encoding='latin1')
 
-        video_capture = cv2.VideoCapture(1)
+        video_capture = cv2.VideoCapture(0)
         c = 0
 
         ## custom
@@ -155,7 +155,7 @@ with tf.Graph().as_default():
                                 print(HumanNames[best_class_indices[0]])
 
                                 # custom
-                                if num_detected <= 1:
+                                if num_detected <= 4:
                                     if name_detected == HumanNames[best_class_indices[0]]:
                                         num_detected+=1
                                     else:
@@ -198,7 +198,7 @@ with tf.Graph().as_default():
                                         print("Employee already login today")
                                     
                                     # db.employees.insert({"name": "John Nico Austria", "age": 18, "employee_number": "001", "phone_number": "09999999999"})
-                                    # db.employees.insert({"name": "Dwayne Cueto", "age": 20, "employee_number": "002", "phone_number": "09321536313"})
+                                    # db.employees.insert({"name": "sssss Cueto", "age": 20, "employee_number": "006", "phone_number": "09321536313"})
                                     # db.employees.insert({"name": "Ernest Nicole Penales", "age": 21, "employee_number": "003", "phone_number": "099072918293"})
                                     # db.employees.insert({"name": "Sammuel Tumanguil", "age": 22, "employee_number": "004", "phone_number": "09339992199"})
 

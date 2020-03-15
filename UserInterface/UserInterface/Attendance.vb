@@ -36,10 +36,13 @@ Public Class Attendance
 
     Public Sub LoadDataInTable()
         'Excel Configs for load
-        workbook = APP.Workbooks.Open(excelLocation)
-        worksheet = workbook.Worksheets("sheet1")
-        ds = New DataSet
-        tables = ds.Tables
+        DataTableAttendance = New DataTable
+
+        DataTableAttendance.Columns.Add("Name", GetType(String))
+        DataTableAttendance.Columns.Add("Age", GetType(String))
+        DataTableAttendance.Columns.Add("Email", GetType(String))
+        DataTableAttendance.Columns.Add("Employee Number", GetType(String))
+        DataTableAttendance.Columns.Add("Time In", GetType(String))
 
         Dim filter = Builders(Of BsonDocument).Filter.Empty
         For Each item As BsonDocument In AttendanceCollection.Find(filter).ToList
@@ -92,11 +95,7 @@ Public Class Attendance
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Login.Close()
-        DataTableAttendance.Columns.Add("Name", GetType(String))
-        DataTableAttendance.Columns.Add("Age", GetType(String))
-        DataTableAttendance.Columns.Add("Email", GetType(String))
-        DataTableAttendance.Columns.Add("Employee Number", GetType(String))
-        DataTableAttendance.Columns.Add("Time In", GetType(String))
+
         LoadDataInTable()
 
         xSub.StartTimer()
@@ -112,7 +111,7 @@ Public Class Attendance
     End Sub
 
     Private Sub TrainFaceRecognitionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TrainFaceRecognitionToolStripMenuItem.Click
-        Shell("CMD.exe /k activate base && cd C:\Users\Sampogi\Desktop\vbnet\Employee-Attendance-System-v2\Engine  && python data_preprocess.py && python train_main.py")
+        Shell("CMD.exe /k activate base && cd C:\Users\Sampogi\Desktop\vbnet\Employee-Attendance-System-v2\Engine  && python data_preprocess.py && python train_main.py && exit")
     End Sub
 
     Private Sub AddNewAdminToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddNewAdminToolStripMenuItem.Click
@@ -127,25 +126,11 @@ Public Class Attendance
         ManageAdmins.Show()
     End Sub
 
-    Private Sub PrintToExcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToExcelToolStripMenuItem.Click
-        Dim columnsCount As Integer = DGV2.Columns.Count
-        For Each column In DGV2.Columns
-            worksheet.Cells(1, column.Index + 1).Value = column.Name
-        Next
-        For i As Integer = 0 To DGV2.Rows.Count - 1
-            Dim columnIndex As Integer = 0
-            Do Until columnIndex = columnsCount
-                worksheet.Cells(i + 2, columnIndex + 1).Value = DGV2.Item(columnIndex, i).Value.ToString
-                columnIndex += 1
-            Loop
-        Next
-        workbook.Save()
-        workbook.Close()
-        APP.Quit()
-    End Sub
 
     Private Sub PrintToPDFToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToPDFToolStripMenuItem.Click
         'Creating iTextSharp Table from the DataTable data
+        'My.Computer.FileSystem.DeleteFile(pdfLocation & "print_to_pdf.pdf")
+
         Dim pdfTable As New PdfPTable(DGV2.ColumnCount)
         pdfTable.DefaultCell.Padding = 3
         pdfTable.WidthPercentage = 30
@@ -168,6 +153,7 @@ Public Class Attendance
 
         'Exporting to PDF
 
+
         Using stream As New FileStream(pdfLocation & "print_to_pdf.pdf", FileMode.Create)
             Dim pdfDoc As New Document(PageSize.A2, 10.0F, 10.0F, 10.0F, 0.0F)
             PdfWriter.GetInstance(pdfDoc, stream)
@@ -176,6 +162,8 @@ Public Class Attendance
             pdfDoc.Close()
             stream.Close()
         End Using
+
+        MsgBox("Attendance successfully printed in pdf")
     End Sub
 End Class
 

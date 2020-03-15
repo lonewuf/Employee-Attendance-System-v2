@@ -27,14 +27,13 @@ Partial Class Attendance
         Me.NewEmployeeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddNewEmployeeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ManageEmployeesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PrintToExcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintToPDFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddNewAdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ManageAdminsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FaceRecognitionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StartFaceRecognitionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrainFaceRecognitionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PrintToPDFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DGV2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -61,7 +60,7 @@ Partial Class Attendance
         '
         'NewEmployeeToolStripMenuItem
         '
-        Me.NewEmployeeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddNewEmployeeToolStripMenuItem, Me.ManageEmployeesToolStripMenuItem, Me.PrintToExcelToolStripMenuItem, Me.PrintToPDFToolStripMenuItem})
+        Me.NewEmployeeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddNewEmployeeToolStripMenuItem, Me.ManageEmployeesToolStripMenuItem, Me.PrintToPDFToolStripMenuItem})
         Me.NewEmployeeToolStripMenuItem.Name = "NewEmployeeToolStripMenuItem"
         Me.NewEmployeeToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
         Me.NewEmployeeToolStripMenuItem.Text = "Employee"
@@ -78,11 +77,11 @@ Partial Class Attendance
         Me.ManageEmployeesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ManageEmployeesToolStripMenuItem.Text = "Manage Employees"
         '
-        'PrintToExcelToolStripMenuItem
+        'PrintToPDFToolStripMenuItem
         '
-        Me.PrintToExcelToolStripMenuItem.Name = "PrintToExcelToolStripMenuItem"
-        Me.PrintToExcelToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PrintToExcelToolStripMenuItem.Text = "Print To Excel"
+        Me.PrintToPDFToolStripMenuItem.Name = "PrintToPDFToolStripMenuItem"
+        Me.PrintToPDFToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PrintToPDFToolStripMenuItem.Text = "Print To PDF"
         '
         'AdminToolStripMenuItem
         '
@@ -122,12 +121,6 @@ Partial Class Attendance
         Me.TrainFaceRecognitionToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
         Me.TrainFaceRecognitionToolStripMenuItem.Text = "Train Face Recognition"
         '
-        'PrintToPDFToolStripMenuItem
-        '
-        Me.PrintToPDFToolStripMenuItem.Name = "PrintToPDFToolStripMenuItem"
-        Me.PrintToPDFToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PrintToPDFToolStripMenuItem.Text = "Print To PDF"
-        '
         'Attendance
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -157,6 +150,5 @@ Partial Class Attendance
     Friend WithEvents FaceRecognitionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StartFaceRecognitionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TrainFaceRecognitionToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PrintToExcelToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PrintToPDFToolStripMenuItem As ToolStripMenuItem
 End Class

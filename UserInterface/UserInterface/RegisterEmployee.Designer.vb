@@ -97,9 +97,9 @@ Partial Class RegisterEmployee
         Me.Label4.Image = CType(resources.GetObject("Label4.Image"), System.Drawing.Image)
         Me.Label4.Location = New System.Drawing.Point(53, 187)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(83, 15)
+        Me.Label4.Size = New System.Drawing.Size(37, 15)
         Me.Label4.TabIndex = 7
-        Me.Label4.Text = "Phone Number:"
+        Me.Label4.Text = "Email:"
         '
         'tb_phone_number
         '
